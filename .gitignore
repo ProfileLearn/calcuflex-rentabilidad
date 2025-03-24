@@ -2,6 +2,8 @@
 
 notas.txt
 
+.vscode/
+
 # Created by https://www.toptal.com/developers/gitignore/api/node,linux,windows,macos,android
 # Edit at https://www.toptal.com/developers/gitignore?templates=node,linux,windows,macos,android
 
