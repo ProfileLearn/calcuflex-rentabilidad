@@ -1,144 +1,279 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Calculadora de uso sencillo para inversiones personales. Con flexibilidad para calcular distintos plazos, tasas de interés y cantidad de renovaciones"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+      integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+      crossorigin="anonymous"
+    />
+    <link rel="icon" href="./favicon.ico" type="image/x-icon" />
 
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description"
-		content="Calculadora de uso sencillo para inversiones personales. Con flexibilidad para calcular distintos plazos, tasas de interés y cantidad de renovaciones">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
-		integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-	<link rel="icon" href="./favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="./css/style.min.css" type="text/css" />
+    <title>Calcula Interés Compuesto</title>
+  </head>
 
-	<link rel="stylesheet" href="./css/style.min.css" type="text/css">
-	<title>Calcula Interés Compuesto</title>
-</head>
+  <body>
+    <main>
+      <article class="container app">
+        <h1 class="text-center shadow-sm mb-0">
+          ¡Calcula la rentabilidad de tus inversiones!
+        </h1>
+        <div class="row align-items-center no-gutters mt-0">
+          <div
+            class="col rounded d-flex justify-content-center align-items-center bg-info"
+          >
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value="false"
+                id="advance-options"
+              />
+              <label class="form-check-label" for="advance-options">
+                Opciones avanzadas activadas
+              </label>
+            </div>
+          </div>
+        </div>
 
-<body>
-	<main>
-		<article class="container app">
-			<h1 class="text-center shadow-sm mb-0">¡Calcula la rentabilidad de tus inversiones!</h1>
-			<div class="row align-items-center no-gutters mt-0">
-				<div class="col rounded d-flex justify-content-center align-items-center bg-info">
-					<div class="form-check">
-						<input class="form-check-input" type="checkbox" value="false" id="advance-options">
-						<label class="form-check-label" for="advance-options">
-							Opciones avanzadas activadas
-						</label>
-					</div>
-				</div>
-			</div>
+        <div class="row align-items-center no-gutters mt-0">
+          <div
+            class="col-sm-6 mr-md-1 shadow rounded d-flex justify-content-center align-items-center"
+          >
+            <h3 class="my-0">TNA %</h3>
+            <button
+              data-tooltip="tna"
+              class="btn btn-success text-white d-flex justify-content-center align-items-center tool-tip"
+            >
+              ?
+            </button>
+          </div>
+          <div class="col-sm">
+            <input
+              class="input form-control"
+              type="text"
+              inputmode="decimal"
+              id="tnaIn"
+              value=""
+            />
+          </div>
+        </div>
+        <div class="row align-items-center no-gutters mt-1">
+          <div
+            class="col-sm-6 mr-md-1 shadow rounded d-flex justify-content-center align-items-center"
+          >
+            <h3 class="my-0">Monto Inicial</h3>
+            <button
+              data-tooltip="inicial"
+              class="btn btn-success text-white d-flex justify-content-center align-items-center tool-tip"
+            >
+              ?
+            </button>
+          </div>
+          <div class="col-sm">
+            <input
+              class="input form-control"
+              type="text"
+              inputmode="numeric"
+              id="inicialIn"
+              value=""
+            />
+          </div>
+        </div>
+        <div class="row align-items-center no-gutters mt-1">
+          <div
+            class="col-sm-6 mr-md-1 shadow rounded d-flex justify-content-center align-items-center"
+          >
+            <h3 class="my-0">Plazo en días</h3>
+            <button
+              data-tooltip="plazo"
+              class="btn btn-success text-white d-flex justify-content-center align-items-center tool-tip"
+            >
+              ?
+            </button>
+          </div>
+          <div class="col-sm">
+            <input
+              class="input form-control"
+              type="text"
+              inputmode="numeric"
+              id="plazoIn"
+              value=""
+            />
+          </div>
+        </div>
+        <div class="row align-items-center no-gutters mt-1">
+          <div
+            class="col-sm-6 mr-md-1 shadow rounded d-flex justify-content-center align-items-center"
+          >
+            <h3 class="my-0">Ciclos</h3>
+            <button
+              data-tooltip="ciclos"
+              class="btn btn-success text-white d-flex justify-content-center align-items-center tool-tip"
+            >
+              ?
+            </button>
+          </div>
+          <div class="col-sm">
+            <input
+              class="input form-control"
+              type="text"
+              inputmode="numeric"
+              id="ciclosIn"
+              value=""
+            />
+          </div>
+        </div>
 
-			<div class="row align-items-center no-gutters mt-0">
-				<div class="col-sm-6 mr-md-1 shadow rounded d-flex justify-content-center align-items-center">
-					<h3 class="my-0">TNA %</h3>
-					<div type="button"
-						class="btn btn-success text-white d-flex justify-content-center align-items-center tool-tip">?</div>
-				</div>
-				<div class="col-sm">
-					<input class="input form-control" type="text" inputmode="numeric" id="tnaIn" value="">
-				</div>
-			</div>
-			<div class="row align-items-center no-gutters mt-1">
-				<div class="col-sm-6 mr-md-1 shadow rounded d-flex justify-content-center align-items-center">
-					<h3 class="my-0">Monto Inicial</h3>
-					<div type="button"
-						class="btn btn-success text-white d-flex justify-content-center align-items-center tool-tip">?</div>
-				</div>
-				<div class="col-sm">
-					<input class="input form-control" type="text" inputmode="numeric" id="inicialIn" value="">
-				</div>
-			</div>
-			<div class="row align-items-center no-gutters mt-1">
-				<div class="col-sm-6 mr-md-1 shadow rounded d-flex justify-content-center align-items-center">
-					<h3 class="my-0">Plazo en días</h3>
-					<div type="button"
-						class="btn btn-success text-white d-flex justify-content-center align-items-center tool-tip">?</div>
-				</div>
-				<div class="col-sm">
-					<input class="input form-control" type="text" inputmode="numeric" id="plazoIn" value="">
-				</div>
-			</div>
-			<div class="row align-items-center no-gutters mt-1">
-				<div class="col-sm-6 mr-md-1 shadow rounded d-flex justify-content-center align-items-center">
-					<h3 class="my-0">Ciclos</h3>
-					<div type="button"
-						class="btn btn-success text-white d-flex justify-content-center align-items-center tool-tip">?</div>
-				</div>
-				<div class="col-sm">
-					<input class="input form-control" type="text" inputmode="numeric" id="ciclosIn" value="">
-				</div>
-			</div>
-			<div class="row align-items-center no-gutters mt-1">
-				<div class="col-sm-6 mr-md-1 shadow rounded d-flex justify-content-center align-items-center">
-					<h3 class="my-0">Adicional por Ciclo</h3>
-					<div type="button"
-						class="btn btn-success text-white d-flex justify-content-center align-items-center tool-tip">?</div>
-				</div>
-				<div class="col-sm">
-					<input class="input form-control" type="text" inputmode="numeric" id="adicionalIn" value="">
-				</div>
-			</div>
+        <div class="row align-items-center no-gutters mt-1">
+          <div
+            class="col-sm-6 mr-md-1 shadow rounded d-flex justify-content-center align-items-center"
+          >
+            <h3 class="my-0">Adicional por Ciclo</h3>
+            <button
+              data-tooltip="adicional"
+              class="btn btn-success text-white d-flex justify-content-center align-items-center tool-tip"
+            >
+              ?
+            </button>
+          </div>
+          <div class="col-sm">
+            <input
+              class="input form-control"
+              type="text"
+              inputmode="numeric"
+              id="adicionalIn"
+              value=""
+            />
+          </div>
+        </div>
 
-			<div class="row align-items-center no-gutters mt-1 oculto">
-				<div class="col-sm-6 mr-md-1 shadow rounded d-flex justify-content-center align-items-center">
-					<h3 class="my-0">Inflación Acumulada %</h3>
-					<div type="button"
-						class="btn btn-success text-white d-flex justify-content-center align-items-center tool-tip">?</div>
-				</div>
-				<div class="col-sm">
-					<input class="input form-control" type="text" inputmode="numeric" id="inflacionIn" value="">
-				</div>
-			</div>
-			<div class="row align-items-center no-gutters mt-1">
-				<div class="col-sm-6 mr-md-1 shadow rounded d-flex justify-content-center align-items-center">
-					<h3 class="my-0">Resultado</h3>
-					<div type="button"
-						class="btn btn-success text-white d-flex justify-content-center align-items-center tool-tip">?</div>
-				</div>
-				<div class="col-sm">
-					<input class="input form-control" type="text" id="resultadoIn" readonly>
-				</div>
-			</div>
-			<div class="row align-items-center no-gutters mt-1">
-				<div class="col-sm-6 mr-md-1 shadow rounded d-flex justify-content-center align-items-center">
-					<h3 class="my-0">Resultado Neto</h3>
-					<div type="button"
-						class="btn btn-success text-white d-flex justify-content-center align-items-center tool-tip">?</div>
-				</div>
-				<div class="col-sm">
-					<input class="input form-control" type="text" id="resultadoNeto" readonly>
-				</div>
-			</div>
-			<div class="row align-items-center no-gutters mt-1 oculto">
-				<div class="col-sm-6 mr-md-1 shadow rounded d-flex justify-content-center align-items-center">
-					<h3 class="my-0">Retorno Posterior por Ciclo</h3>
-					<div type="button"
-						class="btn btn-success text-white d-flex justify-content-center align-items-center tool-tip">?</div>
-				</div>
-				<div class="col-sm">
-					<input class="input form-control" type="text" id="resultadoCiclo" readonly>
-				</div>
-			</div>
+        <div class="row align-items-center no-gutters mt-1 oculto">
+          <div
+            class="col-sm-6 mr-md-1 shadow rounded d-flex justify-content-center align-items-center"
+          >
+            <h3 class="my-0">Inflación Acumulada %</h3>
+            <button
+              data-tooltip="ita"
+              class="btn btn-success text-white d-flex justify-content-center align-items-center tool-tip"
+            >
+              ?
+            </button>
+          </div>
+          <div class="col-sm">
+            <input
+              class="input form-control"
+              type="text"
+              inputmode="decimal"
+              id="inflacionIn"
+              value=""
+            />
+          </div>
+        </div>
+        <div class="row align-items-center no-gutters mt-1">
+          <div
+            class="col-sm-6 mr-md-1 shadow rounded d-flex justify-content-center align-items-center"
+          >
+            <h3 class="my-0">Resultado</h3>
+            <button
+              data-tooltip="resultado"
+              class="btn btn-success text-white d-flex justify-content-center align-items-center tool-tip"
+            >
+              ?
+            </button>
+          </div>
+          <div class="col-sm">
+            <input
+              class="input form-control"
+              type="text"
+              id="resultadoIn"
+              readonly
+            />
+          </div>
+        </div>
+        <div class="row align-items-center no-gutters mt-1">
+          <div
+            class="col-sm-6 mr-md-1 shadow rounded d-flex justify-content-center align-items-center"
+          >
+            <h3 class="my-0">Resultado Neto</h3>
+            <button
+              data-tooltip="resultadoNeto"
+              class="btn btn-success text-white d-flex justify-content-center align-items-center tool-tip"
+            >
+              ?
+            </button>
+          </div>
+          <div class="col-sm">
+            <input
+              class="input form-control"
+              type="text"
+              id="resultadoNeto"
+              readonly
+            />
+          </div>
+        </div>
+        <div class="row align-items-center no-gutters mt-1 oculto">
+          <div
+            class="col-sm-6 mr-md-1 shadow rounded d-flex justify-content-center align-items-center"
+          >
+            <h3 class="my-0">Retorno Posterior por Ciclo</h3>
+            <button
+              data-tooltip="resultadoCiclo"
+              class="btn btn-success text-white d-flex justify-content-center align-items-center tool-tip"
+            >
+              ?
+            </button>
+          </div>
+          <div class="col-sm">
+            <input
+              class="input form-control"
+              type="text"
+              id="resultadoCiclo"
+              readonly
+            />
+          </div>
+        </div>
 
-			<div class="row my-1">
-				<div class="col-sm">
-					<button type="button" id="calcular"
-						class="btn btn-success btn-block my-2 font-weight-bolder botones">Calcular</button>
-				</div>
-				<div class="col-sm">
-					<button type="button" id="clear"
-						class="btn btn-secondary btn-block my-2 font-weight-bolder botones">Reiniciar</button>
-				</div>
-			</div>
-			<div class="row mt-0 mb-2 oculto">
-				<div class="col-sm">
-					<button type="button" id="ver-mas" class="btn btn-info btn-sm btn-block font-weight-lighter">Ver más</button>
-				</div>
-			</div>
-		</article>
-	</main>
-	<script type="module" src="./js/index.min.js"></script>
-</body>
-
+        <div class="row my-1">
+          <div class="col-sm">
+            <button
+              type="button"
+              id="calcular"
+              class="btn btn-success btn-block my-2 font-weight-bolder botones"
+            >
+              Calcular
+            </button>
+          </div>
+          <div class="col-sm">
+            <button
+              type="button"
+              id="clear"
+              class="btn btn-secondary btn-block my-2 font-weight-bolder botones"
+            >
+              Reiniciar
+            </button>
+          </div>
+        </div>
+        <div class="row mt-0 mb-2 oculto">
+          <div class="col-sm">
+            <button
+              type="button"
+              id="ver-mas"
+              class="btn btn-info btn-sm btn-block font-weight-lighter"
+            >
+              Ver más
+            </button>
+          </div>
+        </div>
+      </article>
+    </main>
+    <script type="module" src="./js/index.js"></script>
+  </body>
 </html>
