@@ -1,3 +1,12 @@
+import { sanitizeDecimalInput, sanitizePercentageInput } from './formatters.js';
+
+const displayFormatters = {
+  montoInicial: sanitizeDecimalInput,
+  adicional: sanitizeDecimalInput,
+  tna: sanitizePercentageInput,
+  inflacion: sanitizePercentageInput
+};
+
 function shouldPersistValue(value) {
   if (value === '' || value === null || value === undefined) {
     return false;
@@ -13,6 +22,13 @@ function shouldPersistValue(value) {
 
 function toDisplayNumber(value) {
   return String(value).replace('.', ',');
+}
+
+function formatParamValue(key, value) {
+  const displayNumber = toDisplayNumber(value);
+  const formatter = displayFormatters[key];
+
+  return formatter ? formatter(displayNumber) : displayNumber;
 }
 
 export function setUrlParams(params) {
@@ -41,7 +57,7 @@ export function getUrlParams() {
     const value = params.get(key);
 
     if (shouldPersistValue(value)) {
-      result[key] = toDisplayNumber(value);
+      result[key] = formatParamValue(key, value);
     }
   }
 
