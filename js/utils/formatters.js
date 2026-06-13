@@ -24,15 +24,31 @@ export function sanitizeNumericInput(text) {
 }
 
 export function sanitizeDecimalInput(text, maxDecimals = 2) {
-  const hasDecimalSeparator = text.includes(",");
-  const hasTrailingComma = text.endsWith(",");
-  let [entero = "", ...decimalParts] = text.split(",");
+  const cleanText = String(text ?? '').replace(/[^\d,\.]/g, '');
+  const commaIndex = cleanText.lastIndexOf(',');
+  const dotIndex = cleanText.lastIndexOf('.');
+  const dotCount = (cleanText.match(/\./g) ?? []).length;
+  const dotDecimalPart = cleanText.slice(dotIndex + 1).replace(/[,.]/g, '');
+  const usesCommaDecimal = commaIndex !== -1;
+  const usesDotDecimal = !usesCommaDecimal
+    && dotCount === 1
+    && dotIndex !== -1
+    && (
+      cleanText.endsWith('.')
+      || (dotDecimalPart.length > 0 && dotDecimalPart.length <= maxDecimals)
+    );
+
+  const decimalSeparatorIndex = usesCommaDecimal ? commaIndex : dotIndex;
+  const hasDecimalSeparator = usesCommaDecimal || usesDotDecimal;
+  const hasTrailingSeparator = /[,\.]$/.test(cleanText);
+  let entero = hasDecimalSeparator ? cleanText.slice(0, decimalSeparatorIndex) : cleanText;
+  const decimalText = hasDecimalSeparator ? cleanText.slice(decimalSeparatorIndex + 1) : '';
 
   entero = dotFormat(entero, true);
 
-  const decimal = decimalParts.join("").replace(/\./g, "").slice(0, maxDecimals);
+  const decimal = decimalText.replace(/[,.]/g, "").slice(0, maxDecimals);
 
-  if (hasTrailingComma && decimal.length === 0) {
+  if (hasTrailingSeparator && decimal.length === 0) {
     return `${entero},`;
   }
 
@@ -44,23 +60,35 @@ export function sanitizeDecimalInput(text, maxDecimals = 2) {
 }
 
 export function sanitizePercentageInput(text) {
-  const cleanText = text.replace(/[^\d,\.]/g, "");
-  const lastSeparatorIndex = Math.max(
-    cleanText.lastIndexOf(","),
-    cleanText.lastIndexOf(".")
-  );
+  const cleanText = String(text ?? '').replace(/[^\d,\.]/g, '');
+  const commaIndex = cleanText.lastIndexOf(',');
+  const dotIndex = cleanText.lastIndexOf('.');
+  const dotCount = (cleanText.match(/\./g) ?? []).length;
+  const dotDecimalPart = cleanText.slice(dotIndex + 1).replace(/[,.]/g, '');
+  const usesCommaDecimal = commaIndex !== -1;
+  const usesDotDecimal = !usesCommaDecimal
+    && dotCount === 1
+    && dotIndex !== -1
+    && (
+      cleanText.endsWith('.')
+      || (dotDecimalPart.length > 0 && dotDecimalPart.length <= 2)
+    );
 
-  if (lastSeparatorIndex === -1) {
-    return dotFormat(cleanText, true);
+  const decimalSeparatorIndex = usesCommaDecimal ? commaIndex : dotIndex;
+  const hasDecimalSeparator = usesCommaDecimal || usesDotDecimal;
+  const hasTrailingSeparator = /[,\.]$/.test(cleanText);
+  const integerText = hasDecimalSeparator ? cleanText.slice(0, decimalSeparatorIndex) : cleanText;
+  const decimalText = hasDecimalSeparator ? cleanText.slice(decimalSeparatorIndex + 1) : '';
+  const integer = integerText.replace(/[,.]/g, '');
+  const decimal = decimalText.replace(/[,.]/g, '').slice(0, 2);
+
+  if (hasTrailingSeparator && decimal.length === 0) {
+    return `${integer},`;
   }
 
-  const integerPart = cleanText.slice(0, lastSeparatorIndex).replace(/[,.]/g, "");
-  const decimalPart = cleanText.slice(lastSeparatorIndex + 1).replace(/[,.]/g, "").slice(0, 2);
-  const formattedIntegerPart = dotFormat(integerPart, true);
-
-  if (/[,.]$/.test(cleanText) && decimalPart.length === 0) {
-    return `${formattedIntegerPart},`;
+  if (!hasDecimalSeparator) {
+    return integer;
   }
 
-  return `${formattedIntegerPart},${decimalPart}`;
+  return `${integer},${decimal}`;
 }

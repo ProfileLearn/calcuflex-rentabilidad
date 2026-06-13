@@ -1,5 +1,10 @@
 import { tooltipsObject } from '../assets/tooltipsObject.js'
-import { sanitizeNumericInput, sanitizeDecimalInput, sanitizePercentageInput } from './formatters.js';
+import {
+  dotFormat,
+  sanitizeNumericInput,
+  sanitizeDecimalInput,
+  sanitizePercentageInput
+} from './formatters.js';
 
 const decimalFieldIds = new Set(['inicialIn', 'adicionalIn']);
 const percentageFieldIds = new Set(['tnaIn', 'inflacionIn']);
@@ -32,10 +37,11 @@ export function showCalculationDetails(resultElement, calculationDetails) {
     return;
   }
 
-  const { tea, tet, rendimiento, ciclos, plazo } = calculationDetails;
+  const { tea, tet, rendimiento, capitalInvertido, ciclos, plazo } = calculationDetails;
   window.alert(
     `Tasa Efectiva Anual: ${tea.toFixed(2)} %\n` +
     `Tasa Efectiva Total x ${ciclos} ciclos de ${plazo} días: ${tet.toFixed(2)} %\n` +
+    `Capital invertido: ${dotFormat(capitalInvertido.toFixed(2))}\n` +
     `Rendimiento Ajustado: ${rendimiento.toFixed(2)} %`
   );
 }

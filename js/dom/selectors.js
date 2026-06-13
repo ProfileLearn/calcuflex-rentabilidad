@@ -18,6 +18,7 @@ export const primaryInputs = {
 export const secondaryElements = {
   appForm: document.getElementsByClassName('app')[0],
   advanceOptions: byId('advance-options'),
+  projectInflation: byId('proyectar-inflacion'),
   viewMore: byId('ver-mas'),
   calculate: byId('calcular'),
   clear: byId('clear')

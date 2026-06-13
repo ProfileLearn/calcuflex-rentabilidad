@@ -3,7 +3,16 @@ function shouldPersistValue(value) {
     return false;
   }
 
-  return Number(value) !== 0;
+  const parsed = Number(value);
+  if (!Number.isFinite(parsed)) {
+    return false;
+  }
+
+  return parsed !== 0;
+}
+
+function toDisplayNumber(value) {
+  return String(value).replace('.', ',');
 }
 
 export function setUrlParams(params) {
@@ -32,7 +41,7 @@ export function getUrlParams() {
     const value = params.get(key);
 
     if (shouldPersistValue(value)) {
-      result[key] = value;
+      result[key] = toDisplayNumber(value);
     }
   }
 
